@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>News World</title>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="nav-bar">
+            <a href="index.html" class="logo">
+                <span class="logo-dot">N</span>ews.
+            </a>
+            <div class="search-wrapper">
+                <span class="search-icon">&#128269;</span>
+                <input type="text" placeholder="Search news..." id="Search-bar" autocomplete="off">
+                <button id="search-btn">Search</button>
+            </div>
+            <button class="theme-toggle" id="theme-toggle" title="Toggle dark mode">&#9790;</button>
+        </div>
+
+        <!-- CATEGORY BAR -->
+        <div class="category-bar">
+            <div class="categories">
+                <button class="cat-btn active" data-category="general">Top Stories</button>
+                <button class="cat-btn" data-category="technology">Technology</button>
+                <button class="cat-btn" data-category="business">Business</button>
+                <button class="cat-btn" data-category="sports">Sports</button>
+                <button class="cat-btn" data-category="health">Health</button>
+                <button class="cat-btn" data-category="science">Science</button>
+                <button class="cat-btn" data-category="entertainment">Entertainment</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-label">Your daily briefing</p>
+            <h1>Stay <span class="highlight">Informed</span>,<br>Stay Ahead.</h1>
+            <p class="hero-sub">Breaking news, deep dives, and the stories that matter — all in one place.</p>
+        </div>
+    </section>
+
+    <!-- RESULTS LABEL -->
+    <div class="results-bar" id="results-bar" style="display:none;">
+        <span id="results-label"></span>
+        <button id="clear-search">&#x2715; Clear</button>
+    </div>
+
+    <!-- MAIN BLOG CONTAINER -->
+    <main class="blog-container" id="blog-container"></main>
+
+    <!-- EMPTY STATE -->
+    <div class="empty-state" id="empty-state" style="display:none;">
+        <div class="empty-icon">&#128240;</div>
+        <h3>No articles found</h3>
+        <p>Try a different search term or category.</p>
+    </div>
+
+    <!-- ERROR STATE -->
+    <div class="error-state" id="error-state" style="display:none;">
+        <div class="empty-icon">&#128683;</div>
+        <h3>Something went wrong</h3>
+        <p id="error-message">Unable to fetch news. Please try again.</p>
+        <button id="retry-btn">Retry</button>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>Powered by <strong>NewsAPI</strong> &mdash; &copy; 2026 News World</p>
+    </footer>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
