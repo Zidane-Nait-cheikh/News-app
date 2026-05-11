@@ -1,4 +1,4 @@
-const apiKey = "bbde1b77f9b74acc89bc0e598998f169";
+const apiKey = "6f250a93cea5ba5edd58cdfd9df95f8c";
 const blogContainer = document.getElementById("blog-container");
 const searchField = document.getElementById("Search-bar");
 const searchButton = document.getElementById("search-btn");
@@ -81,21 +81,26 @@ retryBtn.addEventListener("click", () => {
   else loadNews();
 });
 
-// ── API calls ─────────────────────────────────────────────────
+// ── API calls (GNews — CORS-friendly) ─────────────────────────
 async function fetchTopHeadlines(category = "general") {
-  const url = `https://newsapi.org/v2/top-headlines?country=us&category=${category}&pageSize=30&apiKey=${apiKey}`;
+  const url = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&max=20&apikey=${apiKey}`;
   const res = await fetch(url);
   const data = await res.json();
-  if (data.status !== "ok") throw new Error(data.message || "API error");
-  return data.articles;
+  if (data.errors) throw new Error(data.errors[0] || "API error");
+  return normalizeArticles(data.articles);
 }
 
 async function fetchQueryNews(query) {
-  const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&pageSize=40&sortBy=publishedAt&apiKey=${apiKey}`;
+  const url = `https://gnews.io/api/v4/search?q=${encodeURIComponent(query)}&lang=en&max=20&sortby=publishedAt&apikey=${apiKey}`;
   const res = await fetch(url);
   const data = await res.json();
-  if (data.status !== "ok") throw new Error(data.message || "API error");
-  return data.articles;
+  if (data.errors) throw new Error(data.errors[0] || "API error");
+  return normalizeArticles(data.articles);
+}
+
+// GNews uses `image` instead of `urlToImage` — normalize to one shape
+function normalizeArticles(articles = []) {
+  return articles.map(a => ({ ...a, urlToImage: a.image || null }));
 }
 
 // ── Load news ─────────────────────────────────────────────────
