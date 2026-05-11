@@ -1,4 +1,4 @@
-const apiKey = "6f250a93cea5ba5edd58cdfd9df95f8c";
+const apiKey = "9f7d56f0-df10-42d8-b99c-30d26986a647";
 const blogContainer = document.getElementById("blog-container");
 const searchField = document.getElementById("Search-bar");
 const searchButton = document.getElementById("search-btn");
@@ -14,6 +14,17 @@ const categoryButtons = document.querySelectorAll(".cat-btn");
 
 let currentCategory = "general";
 let currentQuery = "";
+
+// Guardian section mapping
+const categoryMap = {
+  general:       "",
+  technology:    "technology",
+  business:      "business",
+  sports:        "sport",
+  health:        "society",
+  science:       "science",
+  entertainment: "culture",
+};
 
 // ── Theme toggle ──────────────────────────────────────────────
 const savedTheme = localStorage.getItem("theme") || "light";
@@ -81,26 +92,38 @@ retryBtn.addEventListener("click", () => {
   else loadNews();
 });
 
-// ── API calls (GNews — CORS-friendly) ─────────────────────────
+// ── API calls (The Guardian — CORS-friendly) ──────────────────
+const BASE = "https://content.guardianapis.com";
+const FIELDS = "thumbnail,trailText,byline";
+
 async function fetchTopHeadlines(category = "general") {
-  const url = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&max=20&apikey=${apiKey}`;
+  const section = categoryMap[category];
+  const sectionParam = section ? `&section=${section}` : "";
+  const url = `${BASE}/search?api-key=${apiKey}&show-fields=${FIELDS}&order-by=newest&page-size=20${sectionParam}`;
   const res = await fetch(url);
   const data = await res.json();
-  if (data.errors) throw new Error(data.errors[0] || "API error");
-  return normalizeArticles(data.articles);
+  if (data.response.status !== "ok") throw new Error("API error");
+  return normalizeArticles(data.response.results);
 }
 
 async function fetchQueryNews(query) {
-  const url = `https://gnews.io/api/v4/search?q=${encodeURIComponent(query)}&lang=en&max=20&sortby=publishedAt&apikey=${apiKey}`;
+  const url = `${BASE}/search?api-key=${apiKey}&q=${encodeURIComponent(query)}&show-fields=${FIELDS}&order-by=newest&page-size=20`;
   const res = await fetch(url);
   const data = await res.json();
-  if (data.errors) throw new Error(data.errors[0] || "API error");
-  return normalizeArticles(data.articles);
+  if (data.response.status !== "ok") throw new Error("API error");
+  return normalizeArticles(data.response.results);
 }
 
-// GNews uses `image` instead of `urlToImage` — normalize to one shape
-function normalizeArticles(articles = []) {
-  return articles.map(a => ({ ...a, urlToImage: a.image || null }));
+// Normalize Guardian response to internal article shape
+function normalizeArticles(results = []) {
+  return results.map(r => ({
+    title:       r.webTitle,
+    description: r.fields?.trailText || "",
+    urlToImage:  r.fields?.thumbnail || null,
+    url:         r.webUrl,
+    publishedAt: r.webPublicationDate,
+    source:      { name: r.sectionName || "" },
+  }));
 }
 
 // ── Load news ─────────────────────────────────────────────────
@@ -138,10 +161,7 @@ function createCard(article, categoryLabel = "") {
   const card = document.createElement("div");
   card.classList.add("blog-card");
 
-  const publishedDate = article.publishedAt
-    ? formatDate(article.publishedAt)
-    : "";
-
+  const publishedDate = article.publishedAt ? formatDate(article.publishedAt) : "";
   const sourceName = article.source?.name || "";
   const desc = article.description && article.description !== "null"
     ? escapeHtml(article.description)
