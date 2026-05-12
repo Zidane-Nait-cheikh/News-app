@@ -1,8 +1,8 @@
-# News World 📰
+# News World
 
-A clean, responsive news aggregator built with vanilla HTML, CSS, and JavaScript — powered by [NewsAPI](https://newsapi.org).
+A clean, fully responsive news aggregator built with vanilla HTML, CSS, and JavaScript — powered by [The Guardian API](https://open-platform.theguardian.com/).
 
-🔗 **Live site:** [Zidane-Nait-cheikh.github.io/News-app](https://Zidane-Nait-cheikh.github.io/News-app/)
+**Live site:** [Zidane-Nait-cheikh.github.io/News-app](https://Zidane-Nait-cheikh.github.io/News-app/)
 
 ---
 
@@ -12,7 +12,7 @@ A clean, responsive news aggregator built with vanilla HTML, CSS, and JavaScript
 - **Search** any topic with real-time results
 - **Dark / Light mode** with local storage persistence
 - **Skeleton loading** cards while fetching
-- **Responsive** grid layout (mobile-friendly)
+- **Fully responsive** — optimized for desktop, tablet, and mobile phones
 - Empty & error states with retry support
 
 ## Tech Stack
@@ -20,29 +20,28 @@ A clean, responsive news aggregator built with vanilla HTML, CSS, and JavaScript
 | Layer | Tools |
 |-------|-------|
 | Markup | HTML5 |
-| Styling | CSS3 (custom properties, grid, animations) |
+| Styling | CSS3 (custom properties, grid, animations, media queries) |
 | Logic | Vanilla JavaScript (async/await, Fetch API) |
-| Data | NewsAPI v2 |
+| Data | The Guardian Open Platform API |
 | Font | Inter (Google Fonts) |
 
 ## Getting Started
 
 ```bash
-git clone https://github.com/zid12256/News-app.git
+git clone https://github.com/Zidane-Nait-cheikh/News-app.git
 cd News-app
 # Open index.html in your browser or use a local server:
 npx serve .
 ```
 
-> **Note:** NewsAPI free tier only allows browser requests from `localhost`.  
-> For production deployment, a backend proxy or a CORS-friendly API is required.
+> **Note:** The Guardian API is CORS-friendly and works directly from the browser with no backend proxy required.
 
 ## Project Structure
 
 ```
 News-app/
 ├── index.html   # App shell & markup
-├── style.css    # All styles (themes, grid, animations)
+├── style.css    # All styles (themes, grid, animations, responsive)
 └── script.js    # API calls, rendering, state management
 ```
 
