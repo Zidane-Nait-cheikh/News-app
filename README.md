@@ -6,6 +6,12 @@ A clean, fully responsive news aggregator built with vanilla HTML, CSS, and Java
 
 ---
 
+## Latest Update
+
+- **Phone responsiveness** — navbar stacks into two rows on small screens, full-width search bar, fluid hero heading, larger touch targets, single-column card grid with optimized spacing, and extra tweaks for very small phones (≤ 360px).
+
+---
+
 ## Features
 
 - **Top Headlines** by category: Technology, Business, Sports, Health, Science, Entertainment
