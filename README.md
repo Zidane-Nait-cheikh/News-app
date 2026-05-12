@@ -2,7 +2,7 @@
 
 A clean, responsive news aggregator built with vanilla HTML, CSS, and JavaScript — powered by [NewsAPI](https://newsapi.org).
 
-🔗 **Live site:** [zid12256.github.io/News-app](https://Zidane-Nait-cheikh.github.io/News-app/)
+🔗 **Live site:** [Zidane-Nait-cheikh.github.io/News-app](https://Zidane-Nait-cheikh.github.io/News-app/)
 
 ---
 
@@ -48,4 +48,4 @@ News-app/
 
 ---
 
-Made by [zid12256](https://github.com/zid12256)
+Made by [Zidane-Nait-cheikh](https://github.com/Zidane-Nait-cheikh)
